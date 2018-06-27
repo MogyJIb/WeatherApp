@@ -7,4 +7,8 @@ import dagger.Provides;
 
 @Module
 public class LogicModule {
+    @Provides
+    ICitiesDao provideCitiesDao() {
+        return new RealmCitiesDao();
+    }
 }
