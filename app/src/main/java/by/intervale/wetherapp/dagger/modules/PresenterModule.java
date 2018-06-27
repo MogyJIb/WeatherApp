@@ -18,4 +18,8 @@ public class PresenterModule {
         return new CityPresenter(citiesDao);
     }
 
+    @Provides
+    ISearchCItyPresenter provideSearchCItyPresenter(ICitiesDao citiesDao) {
+        return new SearchCityDialogPresenter(citiesDao);
+    }
 }

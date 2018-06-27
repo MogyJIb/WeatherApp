@@ -28,4 +28,5 @@ public interface AppComponent {
     void inject(MainActivity mainActivity);
 
     void inject(CityFragment cityFragment);
+    void inject(SearchCityDialogFragment searchCityDialogFragment);
 }
