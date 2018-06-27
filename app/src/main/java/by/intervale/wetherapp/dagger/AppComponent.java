@@ -25,4 +25,7 @@ public interface AppComponent {
     void inject(BaseActivity baseActivity);
     void inject(BaseFragment baseFragment);
 
+    void inject(MainActivity mainActivity);
+
+    void inject(CityFragment cityFragment);
 }

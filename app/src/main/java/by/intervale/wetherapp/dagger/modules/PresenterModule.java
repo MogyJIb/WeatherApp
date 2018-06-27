@@ -13,5 +13,9 @@ import dagger.Provides;
 @Module
 public class PresenterModule {
 
+    @Provides
+    ICityPresenter provideCityPresenter(ICitiesDao citiesDao) {
+        return new CityPresenter(citiesDao);
+    }
 
 }
