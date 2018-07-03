@@ -1,12 +1,15 @@
-package by.intervale.wetherapp.models;
+package by.intervale.wetherapp.data.models;
+
+import android.arch.persistence.room.Ignore;
 
 import com.google.gson.annotations.SerializedName;
 
 import java.util.Objects;
 
-import io.realm.RealmObject;
+import io.realm.RealmModel;
+import io.realm.annotations.RealmClass;
 
-public class Geometry extends RealmObject{
+public class Geometry{
 
     @SerializedName("lon")
     public double longitude;
@@ -14,6 +17,7 @@ public class Geometry extends RealmObject{
     @SerializedName("lat")
     public double latitude;
 
+    @Ignore
     public Geometry(){}
 
     public Geometry(double longitude, double latitude) {
@@ -41,22 +45,5 @@ public class Geometry extends RealmObject{
     @Override
     public int hashCode() {
         return Objects.hash(longitude, latitude);
-    }
-
-
-    public double getLongitude() {
-        return longitude;
-    }
-
-    public void setLongitude(double longitude) {
-        this.longitude = longitude;
-    }
-
-    public double getLatitude() {
-        return latitude;
-    }
-
-    public void setLatitude(double latitude) {
-        this.latitude = latitude;
     }
 }

@@ -1,14 +1,19 @@
 package by.intervale.wetherapp.dagger.modules;
 
-import by.intervale.wetherapp.logic.ICitiesDao;
-import by.intervale.wetherapp.logic.RealmCitiesDao;
+import android.content.Context;
+
+import javax.inject.Singleton;
+
+import by.intervale.wetherapp.data.IDataRepository;
+import by.intervale.wetherapp.data.room.RoomDataRepository;
 import dagger.Module;
 import dagger.Provides;
 
 @Module
 public class LogicModule {
+    @Singleton
     @Provides
-    ICitiesDao provideCitiesDao() {
-        return new RealmCitiesDao();
+    IDataRepository provideRepository(Context applicationContext){
+        return new RoomDataRepository(applicationContext);
     }
 }

@@ -3,22 +3,29 @@ package by.intervale.wetherapp;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
+import com.google.gson.reflect.TypeToken;
+
+import java.io.InputStreamReader;
+import java.util.List;
+import java.util.concurrent.Callable;
+
+import javax.inject.Inject;
 
 import by.intervale.wetherapp.dagger.AppComponent;
 import by.intervale.wetherapp.dagger.DaggerAppComponent;
-import by.intervale.wetherapp.data.DefaultRealmConfiguration;
-import by.intervale.wetherapp.models.City;
-import by.intervale.wetherapp.models.Geometry;
-import dagger.android.DaggerApplication;
-import io.realm.Realm;
-import io.realm.RealmConfiguration;
-import io.realm.RealmObject;
-import io.realm.RealmResults;
+import by.intervale.wetherapp.dagger.modules.AppModule;
+import by.intervale.wetherapp.data.IDataRepository;
+import by.intervale.wetherapp.data.models.City;
+import by.intervale.wetherapp.utils.JsonConverterUtils;
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 public class Application extends android.app.Application{
+
+    @Inject
+    IDataRepository mRepository;
+
     @NonNull
     private static AppComponent appComponent;
 
@@ -35,8 +42,9 @@ public class Application extends android.app.Application{
     @Override
     public void onCreate() {
         super.onCreate();
-        initRealm();
+
         initAppComponent();
+        initDatabase();
     }
 
     @NonNull
@@ -45,28 +53,26 @@ public class Application extends android.app.Application{
     }
 
     private void initAppComponent(){
-        appComponent = DaggerAppComponent.create();
+        appComponent = DaggerAppComponent.builder()
+                .appModule(new AppModule(this))
+                .build();
+        appComponent.inject(this);
     }
 
-    private void initRealm(){
-        Realm.init(this);
-        Realm.setDefaultConfiguration(DefaultRealmConfiguration.getInstance());
-
-        Realm realm = Realm.getDefaultInstance();
-
-        realm.executeTransactionAsync(r -> {
-            r.deleteAll();
-            final boolean isCreated = r.where(City.class).findAll().size() != 0;
-
-            if (isCreated)
-                return;
-
-            try {
-                r.createAllFromJson(City.class, getResources().openRawResource(R.raw.cities_list));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-        }, realm::close, Throwable::printStackTrace);
+    private void initDatabase() {
+        Observable.fromCallable(() -> mRepository.isInitialized())
+                .flatMap(isInitialized -> isInitialized
+                        ? Observable.empty()
+                        : Observable.fromCallable((Callable<List<City>>) () -> JsonConverterUtils.parseData(
+                            new InputStreamReader(getResources().openRawResource(R.raw.cities_list)),
+                            new TypeToken<List<City>>() {}.getType())
+                ))
+                .flatMap(cities -> Observable.fromCallable(() -> {
+                    mRepository.cityDao().insertAll(cities);
+                    return true;
+                }))
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe();
     }
 }

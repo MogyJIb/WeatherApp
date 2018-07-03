@@ -2,7 +2,6 @@ package by.intervale.wetherapp.views.cities;
 
 import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,10 +10,9 @@ import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import by.intervale.wetherapp.R;
-import by.intervale.wetherapp.models.City;
+import by.intervale.wetherapp.data.models.City;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 
@@ -83,11 +81,11 @@ public class CityRecyclerViewAdapter extends RecyclerView.Adapter<CityRecyclerVi
             }
 
             if(mOnClickListener !=null)
-                itemView.setOnClickListener(v -> mOnClickListener.onCityItemClicked(v,mCity));
+                itemView.setOnClickListener(v -> mOnClickListener.onCityItemClicked(mCity));
         }
 
         public interface OnItemClickListener{
-            void onCityItemClicked(View view, City city);
+            void onCityItemClicked(City city);
         }
     }
 

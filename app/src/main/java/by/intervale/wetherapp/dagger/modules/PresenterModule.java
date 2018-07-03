@@ -1,12 +1,13 @@
 package by.intervale.wetherapp.dagger.modules;
 
 
-import by.intervale.wetherapp.logic.ICitiesDao;
-import by.intervale.wetherapp.logic.RealmCitiesDao;
+import javax.inject.Singleton;
+
+import by.intervale.wetherapp.data.IDataRepository;
 import by.intervale.wetherapp.views.cities.CityPresenter;
 import by.intervale.wetherapp.views.cities.ICityPresenter;
-import by.intervale.wetherapp.views.dialogs.ISearchCItyPresenter;
-import by.intervale.wetherapp.views.dialogs.SearchCityDialogPresenter;
+import by.intervale.wetherapp.views.search.ISearchCityPresenter;
+import by.intervale.wetherapp.views.search.SearchCityDialogPresenter;
 import dagger.Module;
 import dagger.Provides;
 
@@ -14,12 +15,12 @@ import dagger.Provides;
 public class PresenterModule {
 
     @Provides
-    ICityPresenter provideCityPresenter(ICitiesDao citiesDao) {
-        return new CityPresenter(citiesDao);
+    ICityPresenter provideCityPresenter(IDataRepository repository) {
+        return new CityPresenter(repository);
     }
 
     @Provides
-    ISearchCItyPresenter provideSearchCItyPresenter(ICitiesDao citiesDao) {
-        return new SearchCityDialogPresenter(citiesDao);
+    ISearchCityPresenter provideSearchCityPresenter(IDataRepository repository) {
+        return new SearchCityDialogPresenter(repository);
     }
 }

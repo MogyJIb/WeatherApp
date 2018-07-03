@@ -1,5 +1,7 @@
 package by.intervale.wetherapp.views.base;
 
+import android.support.v4.app.Fragment;
+
 import io.reactivex.disposables.CompositeDisposable;
 
 public abstract class BasePresenter<T extends IBaseView> implements IBasePresenter<T> {

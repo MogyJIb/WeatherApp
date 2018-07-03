@@ -10,7 +10,7 @@ import by.intervale.wetherapp.views.MainActivity;
 import by.intervale.wetherapp.views.base.BaseActivity;
 import by.intervale.wetherapp.views.base.BaseFragment;
 import by.intervale.wetherapp.views.cities.CityFragment;
-import by.intervale.wetherapp.views.dialogs.SearchCityDialogFragment;
+import by.intervale.wetherapp.views.search.SearchCityDialogFragment;
 import dagger.Component;
 
 @Singleton

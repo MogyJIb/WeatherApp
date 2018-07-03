@@ -1,21 +1,27 @@
-package by.intervale.wetherapp.views.dialogs;
+package by.intervale.wetherapp.views.search;
+
+import java.util.concurrent.Callable;
 
 import javax.inject.Inject;
 
-import by.intervale.wetherapp.logic.ICitiesDao;
+import by.intervale.wetherapp.data.IDataRepository;
+import by.intervale.wetherapp.data.models.City;
+import by.intervale.wetherapp.data.models.Favourite;
 import by.intervale.wetherapp.views.base.BasePresenter;
+import io.reactivex.Flowable;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 public class SearchCityDialogPresenter
         extends BasePresenter<ISearchCityView>
-        implements ISearchCItyPresenter {
+        implements ISearchCityPresenter {
 
     @Inject
-    ICitiesDao mCitiesDao;
+    IDataRepository mRepository;
 
-    public SearchCityDialogPresenter(ICitiesDao citiesDao) {
-        mCitiesDao = citiesDao;
+    public SearchCityDialogPresenter(IDataRepository repository) {
+        this.mRepository = repository;
     }
 
     @Override
@@ -26,12 +32,13 @@ public class SearchCityDialogPresenter
         }
 
         mDisposables.add(
-                mCitiesDao.filterCities(pattern)
+                Flowable.fromCallable(()->mRepository.cityDao().filter(pattern))
                         .flatMap(cities -> Observable.fromIterable(cities)
                                 .sorted((o1, o2) -> o1.name.compareTo(o2.name))
                                 .toList()
-                                .toObservable()
+                                .toFlowable()
                         )
+                        .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(cities -> mView.updateData(cities), this::handleError)
         );

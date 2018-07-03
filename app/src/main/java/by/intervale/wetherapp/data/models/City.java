@@ -1,22 +1,33 @@
-package by.intervale.wetherapp.models;
+package by.intervale.wetherapp.data.models;
+
+import android.arch.persistence.room.Embedded;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
+import android.arch.persistence.room.PrimaryKey;
+import android.support.annotation.NonNull;
 
 import com.google.gson.annotations.SerializedName;
 
 import java.util.Objects;
 
-import io.realm.RealmObject;
-import io.realm.annotations.PrimaryKey;
+import io.realm.RealmModel;
+import io.realm.annotations.RealmClass;
 
-public class City extends RealmObject {
+@Entity(tableName = "city")
+public class City implements Comparable<City> {
+
     @PrimaryKey
     public long id;
     public String name;
     public String country;
 
+    @Embedded
     @SerializedName("coord")
     public Geometry geometry;
 
-    public City(){}
+    @Ignore
+    public City() {
+    }
 
     public City(long id, String name, String country, Geometry geometry) {
         this.id = id;
@@ -47,40 +58,7 @@ public class City extends RealmObject {
     }
 
     @Override
-    public int hashCode() {
-        return Objects.hash(id, name, country, geometry);
-    }
-
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getCountry() {
-        return country;
-    }
-
-    public void setCountry(String country) {
-        this.country = country;
-    }
-
-    public Geometry getGeometry() {
-        return geometry;
-    }
-
-    public void setGeometry(Geometry geometry) {
-        this.geometry = geometry;
+    public int compareTo(@NonNull City city) {
+        return Long.compare(id, city.id);
     }
 }

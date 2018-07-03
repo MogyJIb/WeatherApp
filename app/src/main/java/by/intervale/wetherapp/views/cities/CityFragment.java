@@ -17,19 +17,20 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import by.intervale.wetherapp.Application;
 import by.intervale.wetherapp.R;
-import by.intervale.wetherapp.models.City;
+import by.intervale.wetherapp.data.models.City;
 import by.intervale.wetherapp.views.base.BaseFragment;
-import by.intervale.wetherapp.views.dialogs.SearchCityDialogFragment;
+import by.intervale.wetherapp.views.search.SearchCityDialogFragment;
 
 
 public class CityFragment
         extends BaseFragment
         implements ICityView{
 
-    @OnClick(R.id.fr_city__fab)
-    public void onFabClick(){
-        DialogFragment newFragment = new SearchCityDialogFragment();
-        newFragment.show(getFragmentManager(), SearchCityDialogFragment.class.getSimpleName());
+    @OnClick(R.id.fr_city__fab_add)
+    public void onAddButtonClick(){
+        DialogFragment fragment =
+                SearchCityDialogFragment.newInstance(city -> mPresenter.addToFavourite(city));
+        fragment.show(getFragmentManager(), SearchCityDialogFragment.class.getSimpleName());
     }
 
 
@@ -62,7 +63,10 @@ public class CityFragment
         super.onViewCreated(view, savedInstanceState);
         Application.applicationComponent().inject(this);
 
-        initRecyclerView();
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(mRecyclerView.getContext(),DividerItemDecoration.VERTICAL);
+        dividerItemDecoration.setDrawable(getResources().getDrawable(R.drawable.cities_list_divider));
+        mRecyclerView.addItemDecoration(dividerItemDecoration);
+        mRecyclerView.setAdapter(mRecyclerViewAdapter);
 
         mPresenter.bindView(this);
         if(savedInstanceState==null) mPresenter.loadCities();
@@ -77,12 +81,5 @@ public class CityFragment
     @Override
     public void updateData(List<City> cities) {
         mRecyclerViewAdapter.updateData(cities);
-    }
-
-    private void initRecyclerView(){
-        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(mRecyclerView.getContext(),DividerItemDecoration.VERTICAL);
-        dividerItemDecoration.setDrawable(getResources().getDrawable(R.drawable.cities_list_divider));
-        mRecyclerView.addItemDecoration(dividerItemDecoration);
-        mRecyclerView.setAdapter(mRecyclerViewAdapter);
     }
 }
