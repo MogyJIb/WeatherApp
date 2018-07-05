@@ -1,8 +1,6 @@
 package by.intervale.wetherapp.views.search;
 
-import android.app.Dialog;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.widget.DividerItemDecoration;
@@ -40,16 +38,7 @@ public class SearchCityDialogFragment
     ISearchCityPresenter mPresenter;
 
     private OnSearchResultListener mOnSearchResultListener;
-
     private CityRecyclerViewAdapter mRecyclerViewAdapter;
-
-    public static SearchCityDialogFragment newInstance(OnSearchResultListener searchResultListener){
-        SearchCityDialogFragment fragment = new SearchCityDialogFragment();
-        Bundle args = new Bundle();
-        args.putSerializable(LISTENER_TAG, searchResultListener);
-        fragment.setArguments(args);
-        return fragment;
-    }
 
     public SearchCityDialogFragment() {
         super();
@@ -59,11 +48,7 @@ public class SearchCityDialogFragment
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setStyle(DialogFragment.STYLE_NO_TITLE,R.style.search_dialog);
-        if(getArguments()!=null) {
-            mOnSearchResultListener =
-                    (OnSearchResultListener) getArguments().getSerializable(LISTENER_TAG);
-        }
+        setStyle(DialogFragment.STYLE_NO_TITLE,R.style.AppTheme_SearchDialog);
     }
 
     @Override
@@ -122,6 +107,11 @@ public class SearchCityDialogFragment
     @Override
     public void clearData() {
         mRecyclerViewAdapter.clear();
+    }
+
+    public SearchCityDialogFragment setOnSearchResultListener(OnSearchResultListener onSearchResultListener) {
+        mOnSearchResultListener = onSearchResultListener;
+        return this;
     }
 
     public interface OnSearchResultListener extends Serializable{

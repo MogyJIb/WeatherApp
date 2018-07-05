@@ -18,7 +18,7 @@ import java.util.List;
 import by.intervale.wetherapp.data.models.City;
 import by.intervale.wetherapp.data.models.Favourite;
 import by.intervale.wetherapp.data.models.Geometry;
-import by.intervale.wetherapp.data.room.RoomDataRepository;
+import by.intervale.wetherapp.data.RoomDataRepository;
 
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.core.IsEqual.equalTo;

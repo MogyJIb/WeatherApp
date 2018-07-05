@@ -52,7 +52,7 @@ public class Weather {
     public static class Clouds {
 
         @SerializedName("all")
-        private int cloudinessPercent;
+        public int cloudinessPercent;
 
         @Ignore
         public Clouds() {
@@ -83,7 +83,7 @@ public class Weather {
     public static class Rain {
 
         @SerializedName("3h")
-        private int rainVolume;
+        public int rainVolume;
 
         @Ignore
         public Rain() {
@@ -114,7 +114,7 @@ public class Weather {
     public static class Snow {
 
         @SerializedName("3h")
-        private int snowVolume;
+        public int snowVolume;
 
         @Ignore
         public Snow() {
@@ -144,9 +144,9 @@ public class Weather {
      * Class for data weather's wind
      */
     public static class Wind {
-        private double speed;
+        public double speed;
         @SerializedName("deg")
-        private int directionInDegrees;
+        public int directionInDegrees;
 
         @Ignore
         public Wind() {

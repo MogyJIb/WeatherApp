@@ -20,6 +20,7 @@ import by.intervale.wetherapp.R;
 import by.intervale.wetherapp.data.models.City;
 import by.intervale.wetherapp.views.base.BaseFragment;
 import by.intervale.wetherapp.views.search.SearchCityDialogFragment;
+import by.intervale.wetherapp.views.weather.intime.InTimeWeatherFragment;
 
 
 public class CityFragment
@@ -28,8 +29,8 @@ public class CityFragment
 
     @OnClick(R.id.fr_city__fab_add)
     public void onAddButtonClick(){
-        DialogFragment fragment =
-                SearchCityDialogFragment.newInstance(city -> mPresenter.addToFavourite(city));
+        DialogFragment fragment = new SearchCityDialogFragment()
+                .setOnSearchResultListener(city -> mPresenter.addToFavourite(city));
         fragment.show(getFragmentManager(), SearchCityDialogFragment.class.getSimpleName());
     }
 
@@ -62,6 +63,15 @@ public class CityFragment
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         Application.applicationComponent().inject(this);
+
+        mRecyclerViewAdapter.setOnItemClickListener(city -> {
+            InTimeWeatherFragment fragment = new InTimeWeatherFragment()
+                    .setCityId(city.id);
+            getFragmentManager().beginTransaction()
+                    .replace(R.id.act_main__container, fragment, InTimeWeatherFragment.class.getSimpleName())
+                    .addToBackStack(InTimeWeatherFragment.class.getSimpleName())
+                    .commit();
+        });
 
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(mRecyclerView.getContext(),DividerItemDecoration.VERTICAL);
         dividerItemDecoration.setDrawable(getResources().getDrawable(R.drawable.cities_list_divider));
