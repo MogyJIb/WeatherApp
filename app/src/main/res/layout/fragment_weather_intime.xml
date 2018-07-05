@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <TextView
+        android:id="@+id/fr_weather_intime__snow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="no snow"
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@+id/fr_weather_intime__snow_lable"
+        app:layout_constraintTop_toTopOf="@+id/fr_weather_intime__snow_lable"/>
+
+    <TextView
+        android:id="@+id/fr_weather_intime__snow_lable"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="snow:"
+        android:fontFamily="sans-serif-medium"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="@+id/fr_weather_intime__wind_lable"
+        app:layout_constraintTop_toBottomOf="@+id/fr_weather_intime__rain_lable"/>
+
+    <TextView
+        android:id="@+id/fr_weather_intime__clouds_lable"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="clouds:"
+        android:fontFamily="sans-serif-medium"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="@+id/fr_weather_intime__wind_lable"
+        app:layout_constraintTop_toBottomOf="@+id/fr_weather_intime__wind_lable"/>
+
+    <TextView
+        android:id="@+id/fr_weather_intime__clouds"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="no clouds"
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@+id/fr_weather_intime__clouds_lable"
+        app:layout_constraintTop_toTopOf="@+id/fr_weather_intime__clouds_lable"/>
+
+    <TextView
+        android:id="@+id/fr_weather_intime__rain_lable"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="rain:"
+        android:fontFamily="sans-serif-medium"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="@+id/fr_weather_intime__wind_lable"
+        app:layout_constraintTop_toBottomOf="@+id/fr_weather_intime__clouds_lable"/>
+
+    <TextView
+        android:id="@+id/fr_weather_intime__rain"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="no rain"
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@+id/fr_weather_intime__rain_lable"
+        app:layout_constraintTop_toTopOf="@+id/fr_weather_intime__rain_lable"/>
+
+    <TextView
+        android:id="@+id/fr_weather_intime__title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="16dp"
+        android:text="City"
+        android:fontFamily="sans-serif-medium"
+        android:textSize="24sp"
+
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:id="@+id/fr_weather_intime__date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="date"
+        android:textSize="16sp"
+
+        app:layout_constraintStart_toStartOf="@+id/fr_weather_intime__title"
+        app:layout_constraintTop_toBottomOf="@+id/fr_weather_intime__title"/>
+
+    <TextView
+        android:id="@+id/fr_weather_intime__temp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="40dp"
+        android:fontFamily="sans-serif-medium"
+
+        android:text="TEMP"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toStartOf="@+id/fr_weather_intime__icon"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/fr_weather_intime__title"
+        app:layout_constraintTop_toTopOf="@+id/fr_weather_intime__title"/>
+
+    <ImageView
+        android:id="@+id/fr_weather_intime__icon"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="16dp"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
+    <TextView
+        android:id="@+id/fr_weather_intime__type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:fontFamily="sans-serif-medium"
+        android:text="type"
+        android:textSize="20sp"
+
+        app:layout_constraintStart_toStartOf="@+id/fr_weather_intime__title"
+        app:layout_constraintTop_toBottomOf="@+id/fr_weather_intime__date"/>
+
+    <TextView
+        android:id="@+id/fr_weather_intime__description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="description"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="@+id/fr_weather_intime__title"
+        app:layout_constraintTop_toBottomOf="@+id/fr_weather_intime__type"/>
+
+    <TextView
+        android:id="@+id/fr_weather_intime__pressure_lable"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:fontFamily="sans-serif-medium"
+        android:text="preassure:"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="@+id/fr_weather_intime__title"
+        app:layout_constraintTop_toBottomOf="@+id/fr_weather_intime__description"/>
+
+    <TextView
+        android:id="@+id/fr_weather_intime__pressure"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="PR"
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@+id/fr_weather_intime__pressure_lable"
+        app:layout_constraintTop_toTopOf="@+id/fr_weather_intime__pressure_lable"/>
+
+    <TextView
+        android:id="@+id/fr_weather_intime__humidity_lable"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:text="humidity:"
+        android:fontFamily="sans-serif-medium"
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@+id/fr_weather_intime__pressure"
+        app:layout_constraintTop_toTopOf="@+id/fr_weather_intime__pressure_lable"/>
+
+    <TextView
+        android:id="@+id/fr_weather_intime__humidity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="H%"
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@+id/fr_weather_intime__humidity_lable"
+        app:layout_constraintTop_toTopOf="@+id/fr_weather_intime__pressure_lable"/>
+
+    <TextView
+        android:id="@+id/fr_weather_intime__wind_lable"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="wind:"
+        android:textSize="16sp"
+        android:fontFamily="sans-serif-medium"
+        app:layout_constraintStart_toStartOf="@+id/fr_weather_intime__title"
+        app:layout_constraintTop_toBottomOf="@+id/fr_weather_intime__pressure_lable"/>
+
+    <TextView
+        android:id="@+id/fr_weather_intime__wind_speed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="no wind"
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@+id/fr_weather_intime__wind_lable"
+        app:layout_constraintTop_toTopOf="@+id/fr_weather_intime__wind_lable"/>
+
+    <TextView
+        android:id="@+id/fr_weather_intime__wind_dir"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="-"
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@+id/fr_weather_intime__wind_speed"
+        app:layout_constraintTop_toTopOf="@+id/fr_weather_intime__wind_lable"/>
+</android.support.constraint.ConstraintLayout>

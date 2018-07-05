@@ -11,6 +11,7 @@ import by.intervale.wetherapp.views.base.BaseActivity;
 import by.intervale.wetherapp.views.base.BaseFragment;
 import by.intervale.wetherapp.views.cities.CityFragment;
 import by.intervale.wetherapp.views.search.SearchCityDialogFragment;
+import by.intervale.wetherapp.views.weather.intime.InTimeWeatherFragment;
 import dagger.Component;
 
 @Singleton
@@ -29,4 +30,5 @@ public interface AppComponent {
 
     void inject(CityFragment cityFragment);
     void inject(SearchCityDialogFragment searchCityDialogFragment);
+    void inject(InTimeWeatherFragment inTimeWeatherFragment);
 }
