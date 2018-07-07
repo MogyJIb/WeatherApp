@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <TextView
+        android:id="@+id/fr_weather_5day__title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="16dp"
+        android:fontFamily="sans-serif-medium"
+        android:text="City"
+        android:textSize="24sp"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/fr_weather_5day__weather_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
+
+        android:layout_marginTop="8dp"
+        app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+        tools:context=".views.weather.fiveday.Weather5DayFragment"
+        tools:listitem="@layout/fragment_5day_weather_list_item"/>
+
+</LinearLayout>

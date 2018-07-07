@@ -9,8 +9,11 @@ import by.intervale.wetherapp.views.cities.CityPresenter;
 import by.intervale.wetherapp.views.cities.ICityPresenter;
 import by.intervale.wetherapp.views.search.ISearchCityPresenter;
 import by.intervale.wetherapp.views.search.SearchCityDialogPresenter;
-import by.intervale.wetherapp.views.weather.intime.IInTimeWeatherPresenter;
-import by.intervale.wetherapp.views.weather.intime.InTimeWeatherPresenter;
+import by.intervale.wetherapp.views.weather.fiveday.IWeather5DayPresenter;
+import by.intervale.wetherapp.views.weather.fiveday.IWeather5DayView;
+import by.intervale.wetherapp.views.weather.fiveday.Weather5DayPresenter;
+import by.intervale.wetherapp.views.weather.intime.IWeatherInTimePresenter;
+import by.intervale.wetherapp.views.weather.intime.WeatherInTimePresenter;
 import dagger.Module;
 import dagger.Provides;
 
@@ -28,7 +31,12 @@ public class PresenterModule {
     }
 
     @Provides
-    IInTimeWeatherPresenter provideInTimeWeatherPresenter(ApiRepository repository) {
-        return new InTimeWeatherPresenter(repository);
+    IWeatherInTimePresenter provideWeatherInTimePresenter(ApiRepository repository) {
+        return new WeatherInTimePresenter(repository);
+    }
+
+    @Provides
+    IWeather5DayPresenter provideWeather5DayPresenter(ApiRepository repository) {
+        return new Weather5DayPresenter(repository);
     }
 }
