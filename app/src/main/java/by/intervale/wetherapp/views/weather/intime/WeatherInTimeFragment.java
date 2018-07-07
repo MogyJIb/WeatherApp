@@ -18,9 +18,9 @@ import by.intervale.wetherapp.Application;
 import by.intervale.wetherapp.R;
 import by.intervale.wetherapp.views.base.BaseFragment;
 
-public class InTimeWeatherFragment
+public class WeatherInTimeFragment
             extends BaseFragment
-            implements IInTimeWeatherView{
+            implements IWeatherInTimeView{
 
     @BindView(R.id.fr_weather_intime__title)
     TextView mTitle;
@@ -50,7 +50,7 @@ public class InTimeWeatherFragment
     ImageView mWeatherImageView;
 
     @Inject
-    IInTimeWeatherPresenter mPresenter;
+    IWeatherInTimePresenter mPresenter;
 
     private long cityId;
 
@@ -75,7 +75,7 @@ public class InTimeWeatherFragment
         mPresenter.unbindView();
     }
 
-    public InTimeWeatherFragment setCityId(long cityId) {
+    public WeatherInTimeFragment setCityId(long cityId) {
         this.cityId = cityId;
         return this;
     }
@@ -109,7 +109,7 @@ public class InTimeWeatherFragment
         mPressure.setText(String.valueOf(pressure));
     }
     @Override
-    public void setWindDirection(int windDirection) {
+    public void setWindDirection(double windDirection) {
         mWindDirection.setText(String.valueOf(windDirection));
     }
     @Override
@@ -117,15 +117,15 @@ public class InTimeWeatherFragment
         mWindSpeed.setText(String.valueOf(windSpeed));
     }
     @Override
-    public void setRain(int rain) {
+    public void setRain(double rain) {
         mRain.setText(String.valueOf(rain));
     }
     @Override
-    public void setClouds(int clouds) {
+    public void setClouds(double clouds) {
         mClouds.setText(String.valueOf(clouds));
     }
     @Override
-    public void setSnow(int snow) {
+    public void setSnow(double snow) {
         mSnow.setText(String.valueOf(snow));
     }
     @Override

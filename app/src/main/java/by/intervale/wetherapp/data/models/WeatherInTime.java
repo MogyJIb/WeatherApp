@@ -5,6 +5,7 @@ import android.arch.persistence.room.Embedded;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
+import android.support.annotation.NonNull;
 
 import java.util.List;
 import java.util.Objects;
@@ -16,7 +17,7 @@ import by.intervale.wetherapp.data.models.City.Geometry;
 import static by.intervale.wetherapp.data.models.Weather.*;
 
 @Entity(tableName = "weather_in_time")
-public class WeatherInTime {
+public class WeatherInTime implements Comparable<WeatherInTime> {
     @PrimaryKey
     public int dateTime;
 
@@ -105,7 +106,11 @@ public class WeatherInTime {
 
     @Override
     public int hashCode() {
-
         return Objects.hash(dateTime, geometry, weather, base, weatherDetails, visibility, wind, clouds, rain, snow, weatherCountryInform, cityId, cityName, responseCode);
+    }
+
+    @Override
+    public int compareTo(@NonNull WeatherInTime weatherInTime) {
+        return dateTime - weatherInTime.dateTime;
     }
 }

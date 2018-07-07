@@ -52,13 +52,13 @@ public class Weather {
     public static class Clouds {
 
         @SerializedName("all")
-        public int cloudinessPercent;
+        public double cloudinessPercent;
 
         @Ignore
         public Clouds() {
         }
 
-        public Clouds(int cloudinessPercent) {
+        public Clouds(double cloudinessPercent) {
             this.cloudinessPercent = cloudinessPercent;
         }
 
@@ -67,7 +67,7 @@ public class Weather {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
             Clouds clouds = (Clouds) o;
-            return cloudinessPercent == clouds.cloudinessPercent;
+            return Double.compare(cloudinessPercent, clouds.cloudinessPercent) == 0;
         }
 
         @Override
@@ -83,13 +83,13 @@ public class Weather {
     public static class Rain {
 
         @SerializedName("3h")
-        public int rainVolume;
+        public double rainVolume;
 
         @Ignore
         public Rain() {
         }
 
-        public Rain(int rainVolume) {
+        public Rain(double rainVolume) {
             this.rainVolume = rainVolume;
         }
 
@@ -98,7 +98,7 @@ public class Weather {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
             Rain rain = (Rain) o;
-            return rainVolume == rain.rainVolume;
+            return Double.compare(rainVolume, rain.rainVolume) == 0;
         }
 
         @Override
@@ -114,13 +114,13 @@ public class Weather {
     public static class Snow {
 
         @SerializedName("3h")
-        public int snowVolume;
+        public double snowVolume;
 
         @Ignore
         public Snow() {
         }
 
-        public Snow(int snowVolume) {
+        public Snow(double snowVolume) {
             super();
             this.snowVolume = snowVolume;
         }
@@ -130,12 +130,11 @@ public class Weather {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
             Snow snow = (Snow) o;
-            return snowVolume == snow.snowVolume;
+            return Double.compare(snowVolume, snow.snowVolume) == 0;
         }
 
         @Override
         public int hashCode() {
-
             return Objects.hash(snowVolume);
         }
     }
@@ -146,13 +145,13 @@ public class Weather {
     public static class Wind {
         public double speed;
         @SerializedName("deg")
-        public int directionInDegrees;
+        public double directionInDegrees;
 
         @Ignore
         public Wind() {
         }
 
-        public Wind(double speed, int directionInDegrees) {
+        public Wind(double speed, double directionInDegrees) {
             this.speed = speed;
             this.directionInDegrees = directionInDegrees;
         }
@@ -163,12 +162,11 @@ public class Weather {
             if (o == null || getClass() != o.getClass()) return false;
             Wind wind = (Wind) o;
             return Double.compare(wind.speed, speed) == 0 &&
-                    directionInDegrees == wind.directionInDegrees;
+                    Double.compare(directionInDegrees, wind.directionInDegrees) == 0;
         }
 
         @Override
         public int hashCode() {
-
             return Objects.hash(speed, directionInDegrees);
         }
     }

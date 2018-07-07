@@ -15,25 +15,25 @@ public class Weather5day {
     @SerializedName("code")
     public int responseCode;
 
-    public String message;
+    public double message;
 
     @Ignore
     public City city;
 
     @Ignore
     @SerializedName("list")
-    public List<WeatherInTime> mWeatherInTimes;
+    public List<WeatherInTime> watherInTimes;
 
     @Ignore
     public Weather5day() {
     }
 
-    public Weather5day(int responseCode, String message, City city,
+    public Weather5day(int responseCode, double message, City city,
                        List<WeatherInTime> weatherInTimes) {
         this.responseCode = responseCode;
         this.message = message;
         this.city = city;
-        mWeatherInTimes = weatherInTimes;
+        watherInTimes = weatherInTimes;
     }
 
     @Override
@@ -44,12 +44,12 @@ public class Weather5day {
         return responseCode == that.responseCode &&
                 Objects.equals(message, that.message) &&
                 Objects.equals(city, that.city) &&
-                Objects.equals(mWeatherInTimes, that.mWeatherInTimes);
+                Objects.equals(watherInTimes, that.watherInTimes);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(responseCode, message, city, mWeatherInTimes);
+        return Objects.hash(responseCode, message, city, watherInTimes);
     }
 }

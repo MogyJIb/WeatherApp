@@ -14,7 +14,7 @@ import io.realm.RealmModel;
 import io.realm.annotations.RealmClass;
 
 @Entity(tableName = "city")
-public class City {
+public class City implements Comparable<City> {
 
     @PrimaryKey
     public long id;
@@ -45,6 +45,11 @@ public class City {
                 Objects.equals(name, city.name) &&
                 Objects.equals(country, city.country) &&
                 Objects.equals(geometry, city.geometry);
+    }
+
+    @Override
+    public int compareTo(@NonNull City city) {
+        return Long.compare(id,city.id);
     }
 
     /**

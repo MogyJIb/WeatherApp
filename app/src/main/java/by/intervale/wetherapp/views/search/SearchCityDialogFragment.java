@@ -68,7 +68,7 @@ public class SearchCityDialogFragment
         });
 
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(mRecyclerView.getContext(),DividerItemDecoration.VERTICAL);
-        dividerItemDecoration.setDrawable(getResources().getDrawable(R.drawable.cities_list_divider));
+        dividerItemDecoration.setDrawable(getResources().getDrawable(R.drawable.list_divider));
         mRecyclerView.addItemDecoration(dividerItemDecoration);
         mRecyclerView.setAdapter(mRecyclerViewAdapter);
 

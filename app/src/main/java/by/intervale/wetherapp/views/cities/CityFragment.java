@@ -1,5 +1,6 @@
 package by.intervale.wetherapp.views.cities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
@@ -18,9 +19,13 @@ import butterknife.OnClick;
 import by.intervale.wetherapp.Application;
 import by.intervale.wetherapp.R;
 import by.intervale.wetherapp.data.models.City;
+import by.intervale.wetherapp.views.MainActivity;
 import by.intervale.wetherapp.views.base.BaseFragment;
 import by.intervale.wetherapp.views.search.SearchCityDialogFragment;
-import by.intervale.wetherapp.views.weather.intime.InTimeWeatherFragment;
+import by.intervale.wetherapp.views.weather.WeatherDetailActivity;
+import by.intervale.wetherapp.views.weather.intime.WeatherInTimeFragment;
+
+import static by.intervale.wetherapp.views.weather.WeatherDetailActivity.CITY_ID;
 
 
 public class CityFragment
@@ -65,16 +70,13 @@ public class CityFragment
         Application.applicationComponent().inject(this);
 
         mRecyclerViewAdapter.setOnItemClickListener(city -> {
-            InTimeWeatherFragment fragment = new InTimeWeatherFragment()
-                    .setCityId(city.id);
-            getFragmentManager().beginTransaction()
-                    .replace(R.id.act_main__container, fragment, InTimeWeatherFragment.class.getSimpleName())
-                    .addToBackStack(InTimeWeatherFragment.class.getSimpleName())
-                    .commit();
+            Intent intent = new Intent(getActivity(),WeatherDetailActivity.class);
+            intent.putExtra(CITY_ID,city.id);
+            startActivity(intent);
         });
 
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(mRecyclerView.getContext(),DividerItemDecoration.VERTICAL);
-        dividerItemDecoration.setDrawable(getResources().getDrawable(R.drawable.cities_list_divider));
+        dividerItemDecoration.setDrawable(getResources().getDrawable(R.drawable.list_divider));
         mRecyclerView.addItemDecoration(dividerItemDecoration);
         mRecyclerView.setAdapter(mRecyclerViewAdapter);
 

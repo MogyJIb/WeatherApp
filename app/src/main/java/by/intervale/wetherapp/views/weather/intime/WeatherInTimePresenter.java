@@ -11,13 +11,13 @@ import by.intervale.wetherapp.views.base.BasePresenter;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
-public class InTimeWeatherPresenter
-            extends BasePresenter<IInTimeWeatherView>
-            implements IInTimeWeatherPresenter{
+public class WeatherInTimePresenter
+            extends BasePresenter<IWeatherInTimeView>
+            implements IWeatherInTimePresenter{
     @Inject
     ApiRepository mRepository;
 
-    public InTimeWeatherPresenter(ApiRepository repository) {
+    public WeatherInTimePresenter(ApiRepository repository) {
         this.mRepository = repository;
     }
 
