@@ -56,14 +56,7 @@ public class Weather5DayFragment extends BaseFragment
         super.onViewCreated(view, savedInstanceState);
         Application.applicationComponent().inject(this);
 
-        mRecyclerViewAdapter.setOnItemClickListener(weatherInTime -> {
-//            WeatherInTimeFragment fragment = new WeatherInTimeFragment()
-//                    .setCityId(weatherInTime.cityId);
-//            getFragmentManager().beginTransaction()
-//                    .replace(R.id.act_main__container, fragment, WeatherInTimeFragment.class.getSimpleName())
-//                    .addToBackStack(WeatherInTimeFragment.class.getSimpleName())
-//                    .commit();
-        });
+        mRecyclerViewAdapter.setOnItemClickListener(mPresenter::onItemClick);
 
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(mRecyclerView.getContext(), DividerItemDecoration.VERTICAL);
         dividerItemDecoration.setDrawable(getResources().getDrawable(R.drawable.list_divider));

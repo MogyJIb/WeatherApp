@@ -32,14 +32,14 @@ public class CityRecyclerViewAdapter extends BaseRecyclerViewAdapter<City, CityR
             super(view);
         }
 
-        public void bind(){
-            if(mItem!=null){
-                mCityName.setText(mItem.name);
-                mCityCountry.setText(mItem.country);
-            }
+        @Override
+        public void bind() {
+            super.bind();
+            if (mItem == null)
+                return;
 
-            if(mOnClickListener !=null)
-                itemView.setOnClickListener(v -> mOnClickListener.onItemClicked(mItem));
+            mCityName.setText(mItem.name);
+            mCityCountry.setText(mItem.country);
         }
     }
 }

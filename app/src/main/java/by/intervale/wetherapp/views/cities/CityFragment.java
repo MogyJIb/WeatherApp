@@ -1,12 +1,14 @@
 package by.intervale.wetherapp.views.cities;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.DialogFragment;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.RecyclerView;
+import android.view.ActionMode;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -19,32 +21,20 @@ import butterknife.OnClick;
 import by.intervale.wetherapp.Application;
 import by.intervale.wetherapp.R;
 import by.intervale.wetherapp.data.models.City;
-import by.intervale.wetherapp.views.MainActivity;
 import by.intervale.wetherapp.views.base.BaseFragment;
-import by.intervale.wetherapp.views.search.SearchCityDialogFragment;
-import by.intervale.wetherapp.views.weather.WeatherDetailActivity;
-import by.intervale.wetherapp.views.weather.intime.WeatherInTimeFragment;
-
-import static by.intervale.wetherapp.views.weather.WeatherDetailActivity.CITY_ID;
+import by.intervale.wetherapp.views.base.BaseRecyclerViewAdapter;
 
 
 public class CityFragment
         extends BaseFragment
-        implements ICityView{
-
-    @OnClick(R.id.fr_city__fab_add)
-    public void onAddButtonClick(){
-        DialogFragment fragment = new SearchCityDialogFragment()
-                .setOnSearchResultListener(city -> mPresenter.addToFavourite(city));
-        fragment.show(getFragmentManager(), SearchCityDialogFragment.class.getSimpleName());
-    }
-
+        implements ICityView {
 
     @BindView(R.id.fr_city_list__cities)
     RecyclerView mRecyclerView;
 
     @Inject
     ICityPresenter mPresenter;
+    private ActionMode mActionMode;
 
     private CityRecyclerViewAdapter mRecyclerViewAdapter;
 
@@ -69,19 +59,52 @@ public class CityFragment
         super.onViewCreated(view, savedInstanceState);
         Application.applicationComponent().inject(this);
 
-        mRecyclerViewAdapter.setOnItemClickListener(city -> {
-            Intent intent = new Intent(getActivity(),WeatherDetailActivity.class);
-            intent.putExtra(CITY_ID,city.id);
-            startActivity(intent);
-        });
+        mRecyclerViewAdapter.setOnItemClickListener(mPresenter::onItemClick);
+        mRecyclerViewAdapter.setOnItemLongClickListener(this::onLongClick);
 
-        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(mRecyclerView.getContext(),DividerItemDecoration.VERTICAL);
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(
+                mRecyclerView.getContext(), DividerItemDecoration.VERTICAL);
         dividerItemDecoration.setDrawable(getResources().getDrawable(R.drawable.list_divider));
         mRecyclerView.addItemDecoration(dividerItemDecoration);
         mRecyclerView.setAdapter(mRecyclerViewAdapter);
 
         mPresenter.bindView(this);
-        if(savedInstanceState==null) mPresenter.loadCities();
+        if (savedInstanceState == null) mPresenter.loadCities();
+    }
+
+    private boolean onLongClick(City city, View view){
+        mActionMode = getActivity().startActionMode(new ActionMode.Callback() {
+            @Override
+            public boolean onCreateActionMode(ActionMode actionMode, Menu menu) {
+                actionMode.getMenuInflater()
+                        .inflate(R.menu.context_menu_favourite_city, menu);
+                return true;
+            }
+
+            @Override
+            public boolean onPrepareActionMode(ActionMode actionMode, Menu menu) {
+                return false;
+            }
+
+            @Override
+            public boolean onActionItemClicked(ActionMode actionMode, MenuItem menuItem) {
+                switch (menuItem.getItemId()) {
+                    case R.id.cm__delete:
+                        mPresenter.deleteFromFavourite(city);
+                        mActionMode.finish(); // Action picked, so close the CAB
+                        return true;
+                    default:
+                        return false;
+                }
+            }
+
+            @Override
+            public void onDestroyActionMode(ActionMode actionMode) {
+                mActionMode = null;
+            }
+        });
+        view.setSelected(true);
+        return true;
     }
 
     @Override
@@ -93,5 +116,10 @@ public class CityFragment
     @Override
     public void updateData(List<City> cities) {
         mRecyclerViewAdapter.updateData(cities);
+    }
+
+    @OnClick(R.id.fr_city__fab_add)
+    public void onAddButtonClick() {
+        mPresenter.onAddButtonClick();
     }
 }

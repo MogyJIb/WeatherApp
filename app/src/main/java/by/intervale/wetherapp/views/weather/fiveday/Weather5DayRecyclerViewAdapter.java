@@ -39,22 +39,22 @@ public class Weather5DayRecyclerViewAdapter
             super(view);
         }
 
-        public void bind(){
-            if(mItem!=null) {
-                mTemperature.setText(String.valueOf(mItem.weatherDetails.temperature));
-                mType.setText(mItem.weather.get(0).weatherType);
-                mDescription.setText(mItem.weather.get(0).description);
-                mDisposables.add(
-                        ImageUtil.loadWeatherImage(
-                                mItem.weather.get(0).icon)
-                                .subscribeOn(Schedulers.io())
-                                .observeOn(AndroidSchedulers.mainThread())
-                                .subscribe(mWeatherImageView::setImageBitmap, Throwable::printStackTrace)
-                );
-            }
+        @Override
+        public void bind() {
+            super.bind();
+            if (mItem == null)
+                return;
 
-            if(mOnClickListener !=null)
-                itemView.setOnClickListener(v -> mOnClickListener.onItemClicked(mItem));
+            mTemperature.setText(String.valueOf(mItem.weatherDetails.temperature));
+            mType.setText(mItem.weather.get(0).weatherType);
+            mDescription.setText(mItem.weather.get(0).description);
+            mDisposables.add(
+                    ImageUtil.loadWeatherImage(
+                            mItem.weather.get(0).icon)
+                            .subscribeOn(Schedulers.io())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribe(mWeatherImageView::setImageBitmap, Throwable::printStackTrace)
+            );
         }
     }
 }

@@ -12,11 +12,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.ButterKnife;
+import by.intervale.wetherapp.data.models.City;
 import io.reactivex.disposables.CompositeDisposable;
 
-public abstract class BaseRecyclerViewAdapter<T, H extends BaseRecyclerViewAdapter.BaseViewHolder<T>> extends RecyclerView.Adapter<H> {
+public abstract class BaseRecyclerViewAdapter<T, H extends BaseRecyclerViewAdapter.BaseViewHolder<T>>
+        extends RecyclerView.Adapter<H> {
+
     protected List<T> mItems;
-    protected BaseViewHolder.OnItemClickListener<T> mOnItemClickListener;
+    protected OnItemClickListener<T> mOnItemClickListener;
+    protected OnItemLongClickListener<T> mOnItemLongClickListener;
 
     public BaseRecyclerViewAdapter() {
         mItems = new ArrayList<>();
@@ -25,6 +29,7 @@ public abstract class BaseRecyclerViewAdapter<T, H extends BaseRecyclerViewAdapt
     @Override
     public void onBindViewHolder(final H holder, int position) {
         holder.mOnClickListener = mOnItemClickListener;
+        holder.mOnLongClickListener = mOnItemLongClickListener;
         holder.mItem = mItems.get(position);
 
         holder.bind();
@@ -35,19 +40,27 @@ public abstract class BaseRecyclerViewAdapter<T, H extends BaseRecyclerViewAdapt
         return mItems.size();
     }
 
-    public void updateData(List<T> items){
+    public void updateData(List<T> items) {
         DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(new DiffCallback(mItems, items));
         this.mItems = items;
         diffResult.dispatchUpdatesTo(this);
     }
 
-    public void clear(){
+    public void clear() {
         this.mItems.clear();
         notifyDataSetChanged();
     }
 
-    public void setOnItemClickListener(BaseViewHolder.OnItemClickListener<T> onItemClickListener){
+    public void setOnItemClickListener(
+            OnItemClickListener<T> onItemClickListener) {
+
         this.mOnItemClickListener = onItemClickListener;
+    }
+
+    public void setOnItemLongClickListener(
+            OnItemLongClickListener<T> onItemLongClickListener) {
+
+        this.mOnItemLongClickListener = onItemLongClickListener;
     }
 
     public abstract static class BaseViewHolder<T> extends RecyclerView.ViewHolder {
@@ -55,22 +68,35 @@ public abstract class BaseRecyclerViewAdapter<T, H extends BaseRecyclerViewAdapt
 
         public T mItem;
         public OnItemClickListener<T> mOnClickListener;
+        public OnItemLongClickListener<T> mOnLongClickListener;
 
         public BaseViewHolder(View view) {
             super(view);
             mDisposables = new CompositeDisposable();
-            ButterKnife.bind(this,view);
+            ButterKnife.bind(this, view);
         }
 
-        public abstract void bind();
+        public void bind() {
+            if (mOnClickListener != null)
+                itemView.setOnClickListener(v -> mOnClickListener.onItemClicked(mItem, v));
 
-        public void unbind(){
+            if (mOnLongClickListener != null){
+                itemView.setLongClickable(true);
+                itemView.setOnLongClickListener(v -> mOnLongClickListener.onItemLongClicked(mItem, v));
+            }
+        }
+
+        public void unbind() {
             mDisposables.dispose();
         }
+    }
 
-        public interface OnItemClickListener<T>{
-            void onItemClicked(T item);
-        }
+    public interface OnItemClickListener<T> {
+        void onItemClicked(T item, View v);
+    }
+
+    public interface OnItemLongClickListener<T> {
+        boolean onItemLongClicked(T item, View v);
     }
 
     public static class DiffCallback<T extends Comparable<T>> extends DiffUtil.Callback {

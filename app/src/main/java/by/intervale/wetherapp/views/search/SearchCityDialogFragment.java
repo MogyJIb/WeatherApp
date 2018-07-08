@@ -62,7 +62,7 @@ public class SearchCityDialogFragment
         super.onViewCreated(view, savedInstanceState);
         Application.applicationComponent().inject(this);
 
-        mRecyclerViewAdapter.setOnItemClickListener(city -> {
+        mRecyclerViewAdapter.setOnItemClickListener((city, v) -> {
             mOnSearchResultListener.onSearchResult(city);
             dismiss();
         });
