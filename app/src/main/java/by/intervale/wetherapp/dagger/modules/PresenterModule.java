@@ -1,16 +1,14 @@
 package by.intervale.wetherapp.dagger.modules;
 
 
-import javax.inject.Singleton;
-
 import by.intervale.wetherapp.data.IDataRepository;
 import by.intervale.wetherapp.data.api.ApiRepository;
+import by.intervale.wetherapp.router.IRouter;
 import by.intervale.wetherapp.views.cities.CityPresenter;
 import by.intervale.wetherapp.views.cities.ICityPresenter;
 import by.intervale.wetherapp.views.search.ISearchCityPresenter;
-import by.intervale.wetherapp.views.search.SearchCityDialogPresenter;
+import by.intervale.wetherapp.views.search.SearchCityPresenter;
 import by.intervale.wetherapp.views.weather.fiveday.IWeather5DayPresenter;
-import by.intervale.wetherapp.views.weather.fiveday.IWeather5DayView;
 import by.intervale.wetherapp.views.weather.fiveday.Weather5DayPresenter;
 import by.intervale.wetherapp.views.weather.intime.IWeatherInTimePresenter;
 import by.intervale.wetherapp.views.weather.intime.WeatherInTimePresenter;
@@ -21,13 +19,13 @@ import dagger.Provides;
 public class PresenterModule {
 
     @Provides
-    ICityPresenter provideCityPresenter(IDataRepository repository) {
-        return new CityPresenter(repository);
+    ICityPresenter provideCityPresenter(IDataRepository repository, IRouter router) {
+        return new CityPresenter(repository, router);
     }
 
     @Provides
     ISearchCityPresenter provideSearchCityPresenter(IDataRepository repository) {
-        return new SearchCityDialogPresenter(repository);
+        return new SearchCityPresenter(repository);
     }
 
     @Provides

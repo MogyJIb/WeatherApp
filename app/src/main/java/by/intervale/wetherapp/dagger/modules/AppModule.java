@@ -6,6 +6,8 @@ import android.content.Context;
 import javax.inject.Singleton;
 
 import by.intervale.wetherapp.Application;
+import by.intervale.wetherapp.router.IRouter;
+import by.intervale.wetherapp.router.MainRouter;
 import dagger.Module;
 import dagger.Provides;
 
@@ -27,4 +29,8 @@ public class AppModule {
     Context provideApplicationContext() {
         return application;
     }
+
+    @Singleton
+    @Provides
+    IRouter provideMainRouter() { return new MainRouter(); }
 }

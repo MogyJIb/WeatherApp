@@ -13,14 +13,14 @@ import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
-public class SearchCityDialogPresenter
+public class SearchCityPresenter
         extends BasePresenter<ISearchCityView>
         implements ISearchCityPresenter {
 
     @Inject
     IDataRepository mRepository;
 
-    public SearchCityDialogPresenter(IDataRepository repository) {
+    public SearchCityPresenter(IDataRepository repository) {
         this.mRepository = repository;
     }
 
