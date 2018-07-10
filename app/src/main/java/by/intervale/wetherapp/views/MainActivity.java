@@ -12,22 +12,22 @@ import javax.inject.Inject;
 import butterknife.ButterKnife;
 import by.intervale.wetherapp.Application;
 import by.intervale.wetherapp.R;
+import by.intervale.wetherapp.router.AppNavigator;
 import by.intervale.wetherapp.router.IRouter;
-import by.intervale.wetherapp.router.MainRouter;
+import by.intervale.wetherapp.router.AppRouter;
 import by.intervale.wetherapp.router.Screens;
 import by.intervale.wetherapp.views.base.BaseActivity;
 import by.intervale.wetherapp.views.cities.CityFragment;
 import by.intervale.wetherapp.views.search.SearchCityDialogFragment;
-import by.intervale.wetherapp.views.weather.WeatherDetailFragment;
+import by.intervale.wetherapp.views.weather.detail.WeatherDetailFragment;
 import ru.terrakok.cicerone.Cicerone;
 import ru.terrakok.cicerone.Navigator;
-import ru.terrakok.cicerone.android.SupportAppNavigator;
 
 public class MainActivity extends BaseActivity {
 
     @Inject
     IRouter mRouter;
-    private Cicerone<MainRouter> mCicerone;
+    private Cicerone<AppRouter> mCicerone;
     private Navigator mNavigator;
 
     @Override
@@ -37,7 +37,7 @@ public class MainActivity extends BaseActivity {
         Application.applicationComponent().inject(this);
         ButterKnife.bind(this);
 
-        mNavigator = new SupportAppNavigator(this, getContainerId()) {
+        mNavigator = new AppNavigator(this, getContainerId()) {
             @Override
             protected Intent createActivityIntent(Context context, String screenKey, Object data) {
                 return null;
@@ -62,7 +62,7 @@ public class MainActivity extends BaseActivity {
             }
         };
 
-        mCicerone = Cicerone.create((MainRouter) mRouter);
+        mCicerone = Cicerone.create((AppRouter) mRouter);
         mCicerone.getNavigatorHolder().setNavigator(mNavigator);
 
         mRouter.navigateTo(Screens.FAVOURITE_CITY_LIST);
@@ -84,5 +84,13 @@ public class MainActivity extends BaseActivity {
     protected void onPause() {
         super.onPause();
         if(mCicerone != null) mCicerone.getNavigatorHolder().removeNavigator();
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (mRouter != null)
+            mRouter.back();
+        else
+            super.onBackPressed();
     }
 }

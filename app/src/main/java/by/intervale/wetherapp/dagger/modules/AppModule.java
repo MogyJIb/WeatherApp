@@ -7,7 +7,7 @@ import javax.inject.Singleton;
 
 import by.intervale.wetherapp.Application;
 import by.intervale.wetherapp.router.IRouter;
-import by.intervale.wetherapp.router.MainRouter;
+import by.intervale.wetherapp.router.AppRouter;
 import dagger.Module;
 import dagger.Provides;
 
@@ -32,5 +32,5 @@ public class AppModule {
 
     @Singleton
     @Provides
-    IRouter provideMainRouter() { return new MainRouter(); }
+    IRouter provideMainRouter() { return new AppRouter(); }
 }

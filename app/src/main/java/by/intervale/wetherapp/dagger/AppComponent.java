@@ -11,6 +11,7 @@ import by.intervale.wetherapp.views.base.BaseActivity;
 import by.intervale.wetherapp.views.base.BaseFragment;
 import by.intervale.wetherapp.views.cities.CityFragment;
 import by.intervale.wetherapp.views.search.SearchCityDialogFragment;
+import by.intervale.wetherapp.views.weather.detail.WeatherDetailFragment;
 import by.intervale.wetherapp.views.weather.fiveday.Weather5DayFragment;
 import by.intervale.wetherapp.views.weather.intime.WeatherInTimeFragment;
 import dagger.Component;
@@ -33,4 +34,5 @@ public interface AppComponent {
     void inject(SearchCityDialogFragment searchCityDialogFragment);
     void inject(WeatherInTimeFragment weatherInTimeFragment);
     void inject(Weather5DayFragment weather5DayFragment);
+    void inject(WeatherDetailFragment weatherDetailFragment);
 }

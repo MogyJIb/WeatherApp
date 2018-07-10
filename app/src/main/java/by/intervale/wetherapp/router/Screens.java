@@ -2,7 +2,7 @@ package by.intervale.wetherapp.router;
 
 import by.intervale.wetherapp.views.cities.CityFragment;
 import by.intervale.wetherapp.views.search.SearchCityDialogFragment;
-import by.intervale.wetherapp.views.weather.WeatherDetailFragment;
+import by.intervale.wetherapp.views.weather.detail.WeatherDetailFragment;
 
 public interface Screens {
     String SEARCH_CITY = SearchCityDialogFragment.class.getSimpleName();

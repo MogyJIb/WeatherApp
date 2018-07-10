@@ -76,8 +76,9 @@ public class CityPresenter
 
     @Override
     public void onAddButtonClick() {
-        mRouter.navigateTo(Screens.SEARCH_CITY,
-                (SearchCityDialogFragment.OnSearchResultListener) this::addToFavourite);
+        mRouter.showSystemDialog(
+                new SearchCityDialogFragment().setOnSearchResultListener(this::addToFavourite)
+        );
     }
 
     @Override

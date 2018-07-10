@@ -1,5 +1,8 @@
 package by.intervale.wetherapp.router;
 
+import android.app.Dialog;
+import android.support.v4.app.DialogFragment;
+
 import ru.terrakok.cicerone.result.ResultListener;
 
 public interface IRouter {
@@ -25,4 +28,8 @@ public interface IRouter {
     void exitWithMessage(String message);
 
     void showSystemMessage(String message);
+
+    void showSystemDialog(DialogFragment dialog);
+
+    void back();
 }
